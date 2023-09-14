@@ -8,6 +8,8 @@ from spherov2.types import Color
 def get_coords(image:str):
 
     image= cv2.imread(image)
+    dimensions=image.shape
+    print('Image Dimension    : ',dimensions)
     original_image= image
     image = cv2.blur(image, (30,30), cv2.BORDER_CONSTANT)
     lowerValues_rect = np.array([60, 120, 120])
@@ -48,7 +50,6 @@ def get_coords(image:str):
 
     coords_sphero = []
     for i,approx_shape in enumerate(approx_shapes):
-        print(i)
         if len(approx_shape) > 12:
 
             coords_sphero.append([int(mc[i][0]), int(mc[i][1])])
@@ -95,7 +96,7 @@ def get_coords(image:str):
     cv2.imshow('Contours_rect', drawing_rect)
     cv2.waitKey()
 
-    return coords_sphero, coords_rect
+    return coords_sphero, coords_rect, dimensions
 
 def sphero_init():
     toy = scanner.find_toy(toy_name="SM-8CEB")
@@ -117,4 +118,4 @@ def movement_params(coords_sphero: list, coords_rect:list):
     return xy_distances_sphero1, x_distances_sphero2, y_distances_sphero1, y_distances_sphero2
 
 if __name__ == "__main__":
-    get_coords("Boxes.png")    
+    get_coords("img/Boxes.png")
