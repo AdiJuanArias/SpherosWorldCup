@@ -1,6 +1,7 @@
 from img_recognitizon import get_coords
 import math
 from math import sqrt
+import numpy as np
 
 def pix_to_cm(pix:int,cm:int):
 
@@ -29,7 +30,8 @@ def get_parameters(coor_x:int ,coor_y:int):
     print(cathetus_x,cathetus_y)
 
     #Get the value of teta
-    teta=math.atan(cathetus_x/cathetus_y)
+    teta=math.atan2(cathetus_y,cathetus_x)
+    teta=np.degrees(teta)
 
     hypotenuse:float=sqrt((cathetus_x**2)+(cathetus_y**2))
 
@@ -40,4 +42,4 @@ def get_parameters(coor_x:int ,coor_y:int):
 
 if __name__ == "__main__":
     coords_sphero, coords_obstacles,dimensions= get_coords('img/Boxes.png')
-    print(get_parameters(128,1346))
+    print(get_parameters(1108,287))
